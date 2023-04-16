@@ -1,12 +1,9 @@
 ﻿
 @{
-    ViewBag.Title = "AnimalRegistration";
+    ViewBag.Title = "AdminLogin";
 }
 
-<h2>AnimalRegistration</h2>
-
-@model CapstoneProject.Models.Animal
-    @using CapstoneProject.Models
+<h2>AdminLogin</h2>
 
 
 <!DOCTYPE html>
@@ -39,9 +36,9 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="@Url.Action("Registration", "SupervisorRegistration")">Register A Supervisor</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#page_top">Register An Animal</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#LoginAdmin">Login As An Admin</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#LoginS">Login As A Supervisor</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="@Url.Action("AnimalRegistration", "Registration")">Register An Animal</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#page_top">Login As An Admin</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="@Url.Action("SupervisorLoginLogin", "Login")">Login As A Supervisor</a></li>
 
                 </ul>
             </div>
@@ -53,59 +50,13 @@
             <!-- About Section Heading-->
             <br />
             <br />
-            <h2 class="page-section-heading text-center text-uppercase text-white">Animal Registeration</h2>
+            <h2 class="page-section-heading text-center text-uppercase text-white">Admin Login</h2>
             <!-- Icon Divider-->
             <div class="divider-custom divider-light">
                 <div class="divider-custom-line"></div>
                 <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                 <div class="divider-custom-line"></div>
             </div>
-            <!-- About Section Content-->
-            @using (Html.BeginForm("Index", "Home", FormMethod.Post))
-            {
-        <div class="form-group" style="margin-bottom:5px">
-
-            @Html.DropDownListFor(an => an.Type, new SelectList(Enum.GetValues(typeof(AnimalList))), "Select Type*", new { @class = "form-control" })
-            @Html.ValidationMessageFor(an => an.Type)
-
-
-
-        </div>
-                <div class="form-group" style="margin-bottom:5px">
-                    @Html.TextBoxFor(an => an.Age, new { @class = "form-control", placeholder = "Age *" })
-                    @Html.ValidationMessageFor(an => an.Age)
-                </div>
-
-
-                <div class="form-group" style="margin-bottom:10px">
-                    <div class="maxl">
-                        @Html.RadioButtonFor(an => an.Gender, "Male", new { @class = "radio inline" })<span> Male </span>
-                        @Html.RadioButtonFor(an => an.Gender, "Female", new { @class = "radio inline" })<span>Female </span>
-                    </div>
-                </div>
-                <div class="text-center mt-4">
-                    <a class="btn btn-xl btn-outline-light" href="https://startbootstrap.com/theme/freelancer/">
-                        Register!
-                    </a>
-                </div>
-                <script type="text/javascript">
-                                            $(function () {
-                                            var msg = '@ViewData["result"]';
-                                            if (msg == '1')
-                                            {
-                                                alert("User Details Inserted Successfully");
-                                                window.location.href = "@Url.Action("Registered", "Home")";
-                                                }
-                                            });
-                </script>
-                @section Scripts {
-                    @Scripts.Render("~/bundles/jqueryval")
-                }
-            }
-        </div>
-
-        <!-- About Section Button-->
-
 
     </section>
     <!-- Bootstrap core JS-->
