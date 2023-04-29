@@ -44,6 +44,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.2.0.123\lib\net461\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="Eml.ClassFactory.Contracts, Version=2.2.0.5, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Eml.ClassFactory.Contracts.2.2.0.5\lib\net472\Eml.ClassFactory.Contracts.dll</HintPath>
     </Reference>
@@ -132,12 +135,14 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\SupervisorController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Process.cs" />
     <Compile Include="Models\Animal.cs" />
     <Compile Include="Models\AnimalList.cs" />
     <Compile Include="Models\Enroll.cs" />
@@ -210,6 +215,8 @@
     <Content Include="Views\Registration\AnimalRegistration.cshtml" />
     <Content Include="Views\Login\AdminLogin.cshtml" />
     <Content Include="Views\Login\SupervisorLogin.cshtml" />
+    <Content Include="Views\Supervisor\SupervisorInterface.cshtml" />
+    <Content Include="Views\Supervisor\ProcessInformation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
