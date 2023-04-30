@@ -17,6 +17,15 @@ namespace CapstoneProject.Controllers
 {
     public class RegistrationController : Controller
     {
+
+        public ActionResult AdminPassword()
+        {
+            //the code will do the below: when the supervisor clicks register inside animal or supervisor registration interface
+            // it will shows a window and the admin must enter his password
+            //if it is match them the registration success, if not then failed
+            return View();
+        }
+
         public ActionResult AnimalRegistration()
         {
             return View();
