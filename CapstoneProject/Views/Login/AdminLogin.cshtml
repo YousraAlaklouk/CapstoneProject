@@ -68,7 +68,7 @@
 
 
 
-                                @using (Html.BeginForm("SupervisorLogin", "Login", FormMethod.Post))
+                                @using (Html.BeginForm("AdminLogin", "Login", FormMethod.Post))
                                 {
                                     @Html.AntiForgeryToken()
                                     <div class="form-group" style="margin-bottom:5px">
@@ -80,7 +80,7 @@
                                     </div>
 
                                     <div class="text-center mt-4">
-                                        <a class="btn btn-xl btn-outline-light" href="https://startbootstrap.com/theme/freelancer/">
+                                        <a class="btn btn-xl btn-outline-light" >
                                             Login!
                                         </a>
                                     </div>
@@ -91,7 +91,7 @@
                                                 if (msg == '1')
                                                 {
                                                     alert("User Details Inserted Successfully");
-                                                    window.location.href = "@Url.Action("IndexLogin", "Home")";
+                                                    window.location.href = "@Url.Action("AdminInterface", "Admin")";
                                                 }
                                             });
                                     </script>

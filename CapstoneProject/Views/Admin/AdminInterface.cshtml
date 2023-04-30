@@ -1,12 +1,13 @@
-﻿}
+﻿
+
+@model IEnumerable<CapstoneProject.Models.Process>
+
+
 @{
-    ViewBag.Title = "SupervisorLogin";
+    ViewBag.Title = "AdminInterface";
 }
-@using CapstoneProject.Models
-@model CapstoneProject.Models.Enroll
 
-<h2>SupervisorLogin</h2>
-
+<h2>AdminInterface</h2>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -59,66 +60,29 @@
                 <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                 <div class="divider-custom-line"></div>
             </div>
-            <!-- Login-->
-            @if (Session["Email"] == null)
-            {
-        <div class="container px-4 px-lg-5" style="">
-            <div class="row gx-4 gx-lg-5">
-                <div class="col-md-10 col-lg-8 mx-auto text-center">
-                    <h2 class="text-white mb-5">Login</h2>
-                    <div class="row input-group-newsletter">
 
 
-
-                        @using (Html.BeginForm("SupervisorLogin", "Login", FormMethod.Post))
-                        {
-                            @Html.AntiForgeryToken()
-                            <div class="form-group" style="margin-bottom:5px">
-                                @Html.TextBoxFor(e => e.Email, new { @class = "form-control", placeholder = "Your Email *" })
-                            </div>
-                            <div class="form-group" style="margin-bottom:5px">
-                                @Html.PasswordFor(e => e.Password, new { id = "password", @class = "form-control", placeholder = "Password *" })
-                                <span id="result"></span>
-                            </div>
-
-                            <div class="text-center mt-4">
-                                <a class="btn btn-xl btn-outline-light">
-                                    Login!
-                                </a>
-                            </div>
-
-                            <script type="text/javascript">
-                                        $(function () {
-                                                var msg = '@ViewData["result"]';
-                                                if (msg == '1')
-                                                {
-                                                    alert("User Details Inserted Successfully");
-                                                    window.location.href = "@Url.Action("SupervisorInterface", "Supervisor")";
-                                                }
-                                            });
-                            </script>
-                        }
-
-
-                    </div>
-                </div>
-
+            <div class="text-center mt-4">
+                <a class="btn btn-xl btn-outline-light" href="https://startbootstrap.com/theme/freelancer/">
+                    Change Settings
+                </a>
+            </div>
+            <div class="text-center mt-4">
+                <a class="btn btn-xl btn-outline-light" href="@Url.Action("ProcessInformation", "Supervisor")">
+                    Supervisors List
+                </a>
+            </div>
+            <div class="text-center mt-4">
+                <a class="btn btn-xl btn-outline-light" href="@Url.Action("ProcessInformation", "Supervisor")">
+                    Milking History
+                </a>
             </div>
 
+
+
+
+
+        </div>
         </div>
 
-}
-
-</section>
-        <br />
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <!-- * *                               SB Forms JS                               * *-->
-        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-</body>
-</html>
+        </div>

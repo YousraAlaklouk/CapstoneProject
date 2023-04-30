@@ -135,6 +135,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\SupervisorController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
@@ -217,6 +219,10 @@
     <Content Include="Views\Login\SupervisorLogin.cshtml" />
     <Content Include="Views\Supervisor\SupervisorInterface.cshtml" />
     <Content Include="Views\Supervisor\ProcessInformation.cshtml" />
+    <Content Include="Views\Admin\AdminInterface.cshtml" />
+    <Content Include="Views\Admin\SupervisorList.cshtml" />
+    <Content Include="Views\Admin\ProcessHistory.cshtml" />
+    <Content Include="Views\Settings\ChangeSettings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
