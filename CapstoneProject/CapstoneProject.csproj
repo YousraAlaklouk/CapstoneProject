@@ -224,6 +224,7 @@
     <Content Include="Views\Admin\ProcessHistory.cshtml" />
     <Content Include="Views\Settings\ChangeSettings.cshtml" />
     <Content Include="Views\Registration\AdminPassword.cshtml" />
+    <Content Include="Views\Login\ForgotPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
