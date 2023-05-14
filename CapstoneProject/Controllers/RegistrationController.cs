@@ -39,7 +39,6 @@ namespace CapstoneProject.Controllers
         public string value = "";
 
         [HttpPost]
-        [ActionName("Regiater")]
         [Obsolete]
         public ActionResult SupEn(Enroll en)
         {
@@ -49,7 +48,7 @@ namespace CapstoneProject.Controllers
                 {
                     String Sup = "Supervisor";
                     Enroll er = new Enroll();
-                    using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-CNJT2HB\\SQLEXPRESS;Initial Catalog= MilkingSystem;Integrated Security=True"))
+                    using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-UJH3HOQ\\SQLEXPRESS;Initial Catalog= MilkingSystem;Integrated Security=True"))
                     {
                         using (SqlCommand cmd = new SqlCommand("INSERT INTO Person (Role,Name,Surname ,Gender, Email, PhoneNumber,Password) VALUES (@Role,@Name,@Surname,@Gender, @Email,@PhoneNumber,@Password)", con))
                         {

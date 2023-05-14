@@ -78,16 +78,14 @@
                                 @Html.PasswordFor(e => e.Password, new { id = "password", @class = "form-control", placeholder = "Password *" })
                                 <span id="result"></span>
                             </div>
-                           
+
                             <div class="text-center mt-4" style="margin-top:0">
                                 <a class="btn btn-xl" style="font-size:medium" href="@Url.Action("ForgotPassword", "Login")">
                                     Forgot your Password?
                                 </a>
                             </div>
                             <div class="text-center mt-4">
-                                <a class="btn btn-xl btn-outline-light">
-                                    Login!
-                                </a>
+                                <button class="btn btn-xl btn-outline-light" id="Button" type="submit">Login!</button>
                             </div>
 
                             <script type="text/javascript">

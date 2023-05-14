@@ -57,7 +57,7 @@
                 <div class="divider-custom-line"></div>
             </div>
             <!-- About Section Content-->
-            @using (Html.BeginForm("SupervisorRegistration", "Regiatration", FormMethod.Post))
+            @using (Html.BeginForm("SupEn", "Registration", FormMethod.Post))
             {
                 <div class="form-group" style="margin-bottom:5px">
                     @Html.TextBoxFor(en => en.Name, new { @class = "form-control", placeholder = "Name *", })
@@ -93,10 +93,13 @@
                     </div>
                 </div>
                 <div class="text-center mt-4">
-                    <a class="btn btn-xl btn-outline-light" href="https://startbootstrap.com/theme/freelancer/">
+                    <button class="btn btn-xl btn-outline-light" id="Button" type="submit">Register!</button>
+                </div>
+                @*<div class="text-center mt-4">
+                    <a class="btn btn-xl btn-outline-light">
                         Register!
                     </a>
-                </div>
+                </div>*@
                 <script type="text/javascript">
                                             $(function () {
                                             var msg = '@ViewData["result"]';
