@@ -48,7 +48,7 @@ namespace CapstoneProject.Models
         [Required(ErrorMessage = "Phone Number Required!!")]
         public string PhoneNumber { get; set; }
 
-
+        public string role { get; set; }
 
 
         public List<Enroll> Enrollsinfo { get; set; }

@@ -104,6 +104,7 @@ namespace CapstoneProject.Controllers
                 Session["Email"] = e.Email.ToString();
                 return View("Home");
                 e.Email = email;
+                e.role = "Supervisor";
 
             }
             else
@@ -140,6 +141,7 @@ namespace CapstoneProject.Controllers
                 Session["Email"] = en.Email.ToString();
                 return View("Home");
                 en.Email = email;
+                en.role = "Admin";
 
             }
             else
