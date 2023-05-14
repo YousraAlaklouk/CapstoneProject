@@ -65,12 +65,12 @@ namespace CapstoneProject.Controllers
                         }
                     }
                 }
-                return View();
+                return RedirectToAction("SupervisorInterface", "Supervisor");
             }
             catch (SqlException ee)
             {
                 MessageBox.Show(ee.Message);
-                return View();
+                return View("SupervisorRegistration");
             }
 
         }
