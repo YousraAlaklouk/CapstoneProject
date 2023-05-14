@@ -89,7 +89,7 @@ namespace CapstoneProject.Controllers
         }
 
         [HttpPost]
-        public ActionResult Supervisorlog(Enroll e)
+        public ActionResult Supervisorlogin(Enroll e)
         {
             //String SqlCon = ConfigurationManager.ConnectionStrings["ConnDB"].ConnectionString;
             SqlConnection con = new SqlConnection("Data Source=DESKTOP-CNJT2HB\\SQLEXPRESS;Initial Catalog= MilkingSystem;Integrated Security=True");
@@ -102,7 +102,7 @@ namespace CapstoneProject.Controllers
             if (sdr.Read())
             {
                 Session["Email"] = e.Email.ToString();
-                return View("Home");
+                RedirectToAction("SupervisorInterface", "Supervisor");
                 e.Email = email;
                 e.role = "Supervisor";
 
@@ -126,7 +126,7 @@ namespace CapstoneProject.Controllers
             //return new JsonResult { Data = new { status = status } };  
         }
         [HttpPost]
-        public ActionResult Adminlog(Enroll en)
+        public ActionResult Adminlogin(Enroll en)
         {
             //String SqlCon = ConfigurationManager.ConnectionStrings["ConnDB"].ConnectionString;
             SqlConnection con = new SqlConnection("Data Source=DESKTOP-CNJT2HB\\SQLEXPRESS;Initial Catalog= MilkingSystem;Integrated Security=True");
@@ -139,7 +139,7 @@ namespace CapstoneProject.Controllers
             if (sdr.Read())
             {
                 Session["Email"] = en.Email.ToString();
-                return View("Home");
+                RedirectToAction("AdminInterface", "Admin");
                 en.Email = email;
                 en.role = "Admin";
 
