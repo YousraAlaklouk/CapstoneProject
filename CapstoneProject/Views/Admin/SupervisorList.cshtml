@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CapstoneProject.Models.Process>
+﻿@model IEnumerable<CapstoneProject.Models.Enroll>
 
 @{
     ViewBag.Title = "SupervisorList";
@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>SupervisorRegistration</title>
+    <title>SupervisorList</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="~/assets/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
@@ -65,42 +65,49 @@
             <table class="table">
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.ProcessID)
+                        @Html.DisplayNameFor(model => model.ID)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.SupervisorID)
+                        @Html.DisplayNameFor(model => model.Name)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.AnimalID)
+                        @Html.DisplayNameFor(model => model.Surname)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.DateTime)
+                        @Html.DisplayNameFor(model => model.Gender)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.State)
+                        @Html.DisplayNameFor(model => model.Email)
+
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PhoneNumber)
 
                     </th>
                 </tr>
 
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ProcessID)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SupervisorID)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.AnimalID)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DateTime)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.State)
-                        </td>
-                    </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Surname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+            </tr>
                 }
 
             </table>

@@ -23,11 +23,11 @@ namespace CapstoneProject.Controllers
 
         public ActionResult SupervisorList()
         {
-            List<Models.Process> FriendList = new List<Models.Process>();
+            List<Models.Enroll> FriendList = new List<Models.Enroll>();
             using (IDbConnection db = new SqlConnection("Data Source=DESKTOP-CNJT2HB\\SQLEXPRESS;Initial Catalog= MilkingSystem;Integrated Security=True"))
             {
 
-                FriendList = db.Query<Models.Process>("SELECT * FROM Person WHERE Role != CH'ADMIN'").ToList();
+                FriendList = db.Query<Models.Enroll>("SELECT * FROM Person WHERE Role != 'Admin'").ToList();
 
             }
             return View(FriendList);

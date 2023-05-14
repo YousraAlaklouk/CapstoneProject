@@ -222,7 +222,6 @@
     <Content Include="Views\Admin\AdminInterface.cshtml" />
     <Content Include="Views\Admin\SupervisorList.cshtml" />
     <Content Include="Views\Admin\ProcessHistory.cshtml" />
-    <Content Include="Views\Registration\AdminPassword.cshtml" />
     <Content Include="Views\Login\ForgotPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
