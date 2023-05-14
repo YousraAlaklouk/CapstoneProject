@@ -58,7 +58,7 @@
                 <div class="divider-custom-line"></div>
             </div>
             <!-- About Section Content-->
-            @using (Html.BeginForm("AnimalRegistration", "Registration", FormMethod.Post))
+            @using (Html.BeginForm("AnimalEn", "Registration", FormMethod.Post))
             {
         <div class="form-group" style="margin-bottom:5px">
 
@@ -80,11 +80,9 @@
                         @Html.RadioButtonFor(an => an.Gender, "Female", new { @class = "radio inline" })<span>Female </span>
                     </div>
                 </div>
-                <div class="text-center mt-4">
-                    <a class="btn btn-xl btn-outline-light">
-                        Register!
-                    </a>
-                </div>
+                    <div class="text-center mt-4">
+                        <button class="btn btn-xl btn-outline-light" id="Button" type="submit">Register!</button>
+                    </div>
                 <script type="text/javascript">
                                             $(function () {
                                             var msg = '@ViewData["result"]';

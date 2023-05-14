@@ -25,7 +25,8 @@ namespace CapstoneProject.Models
         [Display(Name = "Type")]
 
         [Required(ErrorMessage = "Type Required!!")]
-        public AnimalList Type { get; set; }
+        public string Type { get; set; }
+
 
 
     }

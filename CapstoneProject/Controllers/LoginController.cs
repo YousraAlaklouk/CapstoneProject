@@ -92,7 +92,7 @@ namespace CapstoneProject.Controllers
         public ActionResult Supervisorlogin(Enroll e)
         {
             //String SqlCon = ConfigurationManager.ConnectionStrings["ConnDB"].ConnectionString;
-            SqlConnection con = new SqlConnection("Data Source=DESKTOP-UJH3HOQ\\SQLEXPRESS;Initial Catalog= MilkingSystem;Integrated Security=True");
+            SqlConnection con = new SqlConnection("Data Source=DESKTOP-CNJT2HB\\SQLEXPRESS;Initial Catalog= MilkingSystem;Integrated Security=True");
             string SqlQuery = "SELECT Email,Password FROM Person WHERE Email=@Email AND Password=@Password AND Role = 'Supervisor'";
             con.Open();
             SqlCommand cmd = new SqlCommand(SqlQuery, con); ;
@@ -129,7 +129,7 @@ namespace CapstoneProject.Controllers
         public ActionResult Adminlogin(Enroll en)
         {
             //String SqlCon = ConfigurationManager.ConnectionStrings["ConnDB"].ConnectionString;
-            SqlConnection con = new SqlConnection("Data Source=DESKTOP-UJH3HOQ\\SQLEXPRESS;Initial Catalog= MilkingSystem;Integrated Security=True");
+            SqlConnection con = new SqlConnection("Data Source=DESKTOP-CNJT2HB\\SQLEXPRESS;Initial Catalog= MilkingSystem;Integrated Security=True");
             string SqlQuery = "SELECT Email,Password FROM Person WHERE Email=@Email AND Password=@Password AND Role ='Admin'";
             con.Open();
             SqlCommand cmd = new SqlCommand(SqlQuery, con); ;

@@ -48,7 +48,7 @@ namespace CapstoneProject.Controllers
                 {
                     String Sup = "Supervisor";
                     Enroll er = new Enroll();
-                    using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-UJH3HOQ\\SQLEXPRESS;Initial Catalog= MilkingSystem;Integrated Security=True"))
+                    using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-CNJT2HB\\SQLEXPRESS;Initial Catalog= MilkingSystem;Integrated Security=True"))
                     {
                         using (SqlCommand cmd = new SqlCommand("INSERT INTO Person (Role,Name,Surname ,Gender, Email, PhoneNumber,Password) VALUES (@Role,@Name,@Surname,@Gender, @Email,@PhoneNumber,@Password)", con))
                         {
@@ -65,7 +65,8 @@ namespace CapstoneProject.Controllers
                         }
                     }
                 }
-                return RedirectToAction("SupervisorInterface", "Supervisor");
+                MessageBox.Show("Registered Succssfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return RedirectToAction("AdminInterface", "Admin");
             }
             catch (SqlException ee)
             {
@@ -76,7 +77,6 @@ namespace CapstoneProject.Controllers
         }
 
         [HttpPost]
-        [ActionName("Regiater")]
         [Obsolete]
         public ActionResult AnimalEn(Animal an)
         {
@@ -84,7 +84,7 @@ namespace CapstoneProject.Controllers
             {
                 if (Request.HttpMethod == "POST")
                 {
-                    Enroll er = new Enroll();
+                    Animal a = new Animal();
                     using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-CNJT2HB\\SQLEXPRESS;Initial Catalog= MilkingSystem;Integrated Security=True"))
                     {
                         using (SqlCommand cmd = new SqlCommand("INSERT INTO Animal (Type,Age,Gender) VALUES (@type,@age,@gen)", con))
@@ -99,13 +99,16 @@ namespace CapstoneProject.Controllers
                         }
                     }
                 }
-                return View();
+                MessageBox.Show("Registered Succssfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return RedirectToAction("AdminInterface", "Admin");
             }
             catch (SqlException ee)
             {
                 MessageBox.Show(ee.Message);
-                return View();
+                return View("AnimalRegistration");
+
             }
+
 
         }
 

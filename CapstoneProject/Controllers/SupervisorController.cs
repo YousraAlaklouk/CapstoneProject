@@ -18,10 +18,10 @@ namespace CapstoneProject.Controllers
         public ActionResult SupervisorInterface()
         {
             List < Models.Process> FriendList = new List<Models.Process>();
-            using (IDbConnection db = new SqlConnection("Data Source=DESKTOP-UJH3HOQ\\SQLEXPRESS;Initial Catalog= MilkingSystem;Integrated Security=True"))
+            using (IDbConnection db = new SqlConnection("Data Source=DESKTOP-CNJT2HB\\SQLEXPRESS;Initial Catalog= MilkingSystem;Integrated Security=True"))
             {
 
-                FriendList = db.Query<Models.Process>("SELECT* FROM MilkingProcess M INNER JOIN Person P ON P.PersonID= M.SupervisorID WHERE  P.Email = '" + Session["Email"].ToString() + "'").ToList();
+                FriendList = db.Query<Models.Process>("SELECT * FROM MilkingProcess M INNER JOIN Person P ON P.PersonID= M.SupervisorID WHERE  P.Email = '" + Session["Email"].ToString() + "'").ToList();
 
             }
             return View(FriendList);
