@@ -10,7 +10,7 @@ namespace CapstoneProject.Models
     public class Enroll
     {
         [Display(Name = "ID")]
-        public int ID { get; set; }
+        public int PersonID { get; set; }
 
         [Required(ErrorMessage = "Please enter your Name")]
         [Display(Name = "Name")]

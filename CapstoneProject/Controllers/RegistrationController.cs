@@ -42,7 +42,7 @@ namespace CapstoneProject.Controllers
                 {
                     String Sup = "Supervisor";
                     Enroll er = new Enroll();
-                    using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-CNJT2HB\\SQLEXPRESS;Initial Catalog= MilkingSystem;Integrated Security=True"))
+                    using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
                     {
                         using (SqlCommand cmd = new SqlCommand("INSERT INTO Person (Role,Name,Surname ,Gender, Email, PhoneNumber,Password) VALUES (@Role,@Name,@Surname,@Gender, @Email,@PhoneNumber,@Password)", con))
                         {
@@ -79,7 +79,7 @@ namespace CapstoneProject.Controllers
                 if (Request.HttpMethod == "POST")
                 {
                     Animal a = new Animal();
-                    using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-CNJT2HB\\SQLEXPRESS;Initial Catalog= MilkingSystem;Integrated Security=True"))
+                    using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
                     {
                         using (SqlCommand cmd = new SqlCommand("INSERT INTO Animal (Type,Age,Gender) VALUES (@type,@age,@gen)", con))
                         {

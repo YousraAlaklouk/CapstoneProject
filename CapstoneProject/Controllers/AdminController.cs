@@ -24,7 +24,7 @@ namespace CapstoneProject.Controllers
         public ActionResult SupervisorList()
         {
             List<Models.Enroll> FriendList = new List<Models.Enroll>();
-            using (IDbConnection db = new SqlConnection("Data Source=DESKTOP-CNJT2HB\\SQLEXPRESS;Initial Catalog= MilkingSystem;Integrated Security=True"))
+            using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
             {
 
                 FriendList = db.Query<Models.Enroll>("SELECT * FROM Person WHERE Role != 'Admin'").ToList();
@@ -35,7 +35,7 @@ namespace CapstoneProject.Controllers
         public ActionResult ProcessHistory()
         {
             List<Models.Process> FriendList = new List<Models.Process>();
-            using (IDbConnection db = new SqlConnection("Data Source=DESKTOP-CNJT2HB\\SQLEXPRESS;Initial Catalog= MilkingSystem;Integrated Security=True"))
+            using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
             {
 
                 FriendList = db.Query<Models.Process>("SELECT * FROM MilkingProcess").ToList();

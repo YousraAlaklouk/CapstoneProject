@@ -28,7 +28,7 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand" href="@Url.Action("Index", "Home")">Home</a>
+            <a class="navbar-brand" href="@Url.Action("AdminInterface", "Admin")">Home</a>
             <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
                 <i class="fas fa-bars"></i>
@@ -37,8 +37,7 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="@Url.Action("SupervisorRegistration", "Registration")">Register A Supervisor</a></li>
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="@Url.Action("AnimalRegistration", "Registration")">Register An Animal</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="@Url.Action("AdminLogin", "Login")">Login As An Admin</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#page_top">Login As A Supervisor</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="@Url.Action("Logout", "Home")">Logout</a></li>
 
                 </ul>
             </div>
@@ -65,7 +64,7 @@
             <table class="table">
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.ID)
+                        @Html.DisplayNameFor(model => model.PersonID)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Name)
@@ -90,7 +89,7 @@
                 {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ID)
+                    @Html.DisplayFor(modelItem => item.PersonID)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
