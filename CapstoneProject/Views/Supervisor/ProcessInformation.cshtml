@@ -1,5 +1,7 @@
-﻿@using CapstoneProject.Models
+﻿
 
+@model CapstoneProject.Models.ViewModel
+    @using CapstoneProject.Models
 @{
     ViewBag.Title = "ProcessInformation";
 }
@@ -63,43 +65,35 @@
             {
                 <p class="mb-4">Supervisor ID</p>
                 <div class="form-group" style="margin-bottom:5px">
-                    @Html.TextBoxFor(pr => pr.SupervisorID, new { @class = "form-control", })
-                    @Html.ValidationMessageFor(pr => pr.SupervisorID)
+                    @Html.DisplayNameFor(model => model.Enroll.PersonID)
 
                 </div>
                 <div class="form-group" style="margin-bottom:5px">
-                    @Html.DropDownListFor(pr => pr.AnimalID, new SelectList(Enum.GetValues(typeof(Animal))), "Select AnimalID*", new { @class = "form-control" })
-                    @Html.ValidationMessageFor(pr => pr.AnimalID)
+                    @Html.DropDownListFor(model => model.Animal.ID, new SelectList(Convert.ToString(Model.Animal.ID)), "Select Type*", new { @class = "form-control" })
                 </div>
+
                 <div class="form-group" style="margin-bottom:5px">
 
-                    @Html.PasswordFor(en => en.Password, new { @class = "form-control", placeholder = "Password *" })
-                    <span id="result"></span>
-                    @Html.ValidationMessageFor(en => en.Password)
+                    @Html.TextBoxFor(model => model.Process.State, new { @class = "form-control" })
                 </div>
-                <div class="form-group" style="margin-bottom:5px">
-                    @Html.PasswordFor(en => en.Confirmpwd, new { @class = "form-control", placeholder = "Confirm Password *" })
-                    @Html.ValidationMessageFor(en => en.Confirmpwd)
-                </div>
-                <div class="form-group" style="margin-bottom:5px">
-                    @Html.TextBoxFor(en => en.Email, new { @class = "form-control", placeholder = "Your Email *" })
-                    @Html.ValidationMessageFor(en => en.Email)
-                </div>
-                <div class="form-group" style="margin-bottom:5px">
-                    @Html.TextBoxFor(en => en.PhoneNumber, new { @class = "form-control", placeholder = "Your Phone Number*" })
-                    @Html.ValidationMessageFor(en => en.PhoneNumber)
-                </div>
-                <div class="form-group" style="margin-bottom:10px">
-                    <div class="maxl">
-                        @Html.RadioButtonFor(en => en.Gender, "Male", new { @class = "radio inline" })<span> Male </span>
-                        @Html.RadioButtonFor(en => en.Gender, "Female", new { @class = "radio inline" })<span>Female </span>
-                    </div>
-                </div>
-                <div class="text-center mt-4">
-                    <a class="btn btn-xl btn-outline-light" href="https://startbootstrap.com/theme/freelancer/">
-                        Register!
-                    </a>
-                </div>
+            }
+        </div>
+        <div class="text-center mt-4">
+            <a class="btn btn-xl btn-outline-light" href="https://startbootstrap.com/theme/freelancer/">
+                Start!
+            </a>
+        </div>
+@*        @foreach (var item in ViewModel)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.Enroll.PersonID)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Animal.ID)
+                </td>
+                </tr>
+        }*@
                 <script type="text/javascript">
                                             $(function () {
                                             var msg = '@ViewData["result"]';
@@ -113,5 +107,6 @@
                 @section Scripts {
                     @Scripts.Render("~/bundles/jqueryval")
                 }
-            }
-        </div>
+        </section>
+        </body>
+</html>

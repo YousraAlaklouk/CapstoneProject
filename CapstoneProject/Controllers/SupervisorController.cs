@@ -29,9 +29,41 @@ namespace CapstoneProject.Controllers
 
         public ActionResult ProcessInformation()
         {
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
+            string SqlQuery = "SELECT * FROM Person WHERE Email=@Email AND Password=@Password AND Role ='Admin'";
+            con.Open();
+            SqlCommand cmd = new SqlCommand(SqlQuery, con); ;
+            cmd.Parameters.AddWithValue("@Email", en.Email);
+            cmd.Parameters.AddWithValue("@Password", en.Password);
+            SqlDataReader sdr = cmd.ExecuteReader();
+            if (sdr.Read())
+            {
+                Session["Email"] = en.Email.ToString();
+                return RedirectToAction("AdminInterface", "Admin");
+                en.Email = email;
+                en.role = "Admin";
+
+            }
+            else
+            {
+                ViewData["Message"] = "User Login Details Failed!!";
+            }
+            if (en.Email.ToString() != null)
+            {
+                Session["Email"] = en.Email.ToString();
+                status = "1";
+            }
+            else
+            {
+                status = "3";
+            }
+
+            con.Close();
+            return RedirectToAction("AdminInterface", "Admin");
+
             return View();
         }
 
 
-    }
+        }
 }

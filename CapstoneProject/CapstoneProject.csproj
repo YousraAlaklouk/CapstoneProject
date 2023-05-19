@@ -143,7 +143,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AnimalsID.cs" />
+    <Compile Include="Models\ViewModel.cs" />
     <Compile Include="Models\Process.cs" />
     <Compile Include="Models\Animal.cs" />
     <Compile Include="Models\AnimalList.cs" />
