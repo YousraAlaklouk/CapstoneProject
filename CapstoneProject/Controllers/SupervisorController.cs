@@ -12,10 +12,15 @@ using System.Data;
 using Dapper;
 using System.Configuration;
 using CapstoneProject.Controllers;
+using System.Web.Helpers;
+using System.Windows.Forms;
+using System.Web.Mvc.Html;
+
 namespace CapstoneProject.Controllers
 {
     public class SupervisorController : Controller
     {
+        String email = LoginController.email;
         public ActionResult SupervisorInterface()
         {
             List < Models.Process> FriendList = new List<Models.Process>();
@@ -27,32 +32,108 @@ namespace CapstoneProject.Controllers
             }
             return View(FriendList);
         }
+        /*        public ActionResult DropDownControl()
 
-        public ActionResult ProcessInformation()
+                {
+                        string SqlQuery = "SELECT P.PersonID, A.AnimalID FROM Person P INNER JOIN MilkingProcess M ON M.SupervisorID=P.PersonID INNER JOIN Animal A ON M.AnimalID = A.AnimalID WHERE P.Email =@Email";
+                        cmd.Parameters.AddWithValue("@Email", email);
+
+
+                }*/
+        public List<Animal> GetAnimalList()
+
         {
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
-            string SqlQuery = "SELECT P.PersonID, A.AnimalID FROM Person P INNER JOIN MilkingProcess M ON M.SupervisorID=P.PersonID INNER JOIN Animal A ON M.AnimalID = A.AnimalID WHERE P.Email =@Email";
-            con.Open();
-            SqlCommand cmd = new SqlCommand(SqlQuery, con); ;
-            cmd.Parameters.AddWithValue("@Email", Session["Email"]);
-            SqlDataReader sdr = cmd.ExecuteReader();
-            if (sdr.Read())
+
+/*            try
             {
-                return RedirectToAction("ProcessInformation", "Supervisor");
+*/
+/*                ViewModel VR = new ViewModel();
+*/                SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
+                string SqlQuery = "SELECT AnimalID FROM Animal";
+                con.Open();
+                SqlCommand cmd = new SqlCommand(SqlQuery, con); ;
+                SqlDataReader sdr = cmd.ExecuteReader();
+            List<Animal> An = new List<Animal>();
 
 
-            }
+            if (sdr.Read())
+
+            {
+                try
+                {
+
+
+
+                    An.Add(new Animal
+
+                    {
+
+                        ID = Convert.ToInt32(sdr["AnimalID"]),
+
+
+                    });
+                }
+                catch(Exception ee)
+                {
+                    MessageBox.Show(ee.Message);
+                }
+                }
             else
             {
-                ViewData["Message"] = "Cannot get information";
+                MessageBox.Show("error");
             }
 
-
             con.Close();
-            return RedirectToAction("ProcessInformation", "Supervisor");
+
+            return An;
 
         }
 
 
+
+/*                {
+                    return RedirectToAction("ProcessInformation", "Supervisor");
+                    con.Close();
+
+                }
+                else
+                {
+                    ViewData["Message"] = "Cannot get information";
+                    con.Close();
+
+                }
+
+            }
+            catch (SqlException ee)
+            {
+
+                MessageBox.Show(ee.Message);
+                return View("ProcessInformation");
+
+            }
+            return View("ProcessInformation");
+
+
+            *//*            return RedirectToAction("ProcessInformation", "Supervisor");
+            *//*
+        }*/
+
+    
+
+
+        public ActionResult ProcessInformation()
+        {
+            ViewModel VR = new ViewModel
+
+            {
+
+                Animals = GetAnimalList()
+
+
+            };
+
+            return View(VR);
+
+        }
     }
 }

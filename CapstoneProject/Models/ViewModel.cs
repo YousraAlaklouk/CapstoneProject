@@ -7,7 +7,9 @@ namespace CapstoneProject.Models
 {
     public class ViewModel
     {
-        public Animal Animal { get; set; }
+        public List<Animal> Animals { get; set; }
+
+
         public Enroll Enroll { get; set; }
 
         public Process Process { get; set; }
