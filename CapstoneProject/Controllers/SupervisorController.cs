@@ -11,6 +11,7 @@ using System.Windows;
 using System.Data;
 using Dapper;
 using System.Configuration;
+using CapstoneProject.Controllers;
 namespace CapstoneProject.Controllers
 {
     public class SupervisorController : Controller
@@ -28,42 +29,30 @@ namespace CapstoneProject.Controllers
         }
 
         public ActionResult ProcessInformation()
-        {/*
+        {
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
-            string SqlQuery = "SELECT * FROM Person WHERE Email=@Email AND Password=@Password AND Role ='Admin'";
+            string SqlQuery = "SELECT P.PersonID, A.AnimalID FROM Person P INNER JOIN MilkingProcess M ON M.SupervisorID=P.PersonID INNER JOIN Animal A ON M.AnimalID = A.AnimalID WHERE P.Email =@Email";
             con.Open();
             SqlCommand cmd = new SqlCommand(SqlQuery, con); ;
-            cmd.Parameters.AddWithValue("@Email", en.Email);
-            cmd.Parameters.AddWithValue("@Password", en.Password);
+            cmd.Parameters.AddWithValue("@Email", Session["Email"]);
             SqlDataReader sdr = cmd.ExecuteReader();
             if (sdr.Read())
             {
-                Session["Email"] = en.Email.ToString();
-                return RedirectToAction("AdminInterface", "Admin");
-                en.Email = email;
-                en.role = "Admin";
+                return RedirectToAction("ProcessInformation", "Supervisor");
+
 
             }
             else
             {
-                ViewData["Message"] = "User Login Details Failed!!";
+                ViewData["Message"] = "Cannot get information";
             }
-            if (en.Email.ToString() != null)
-            {
-                Session["Email"] = en.Email.ToString();
-                status = "1";
-            }
-            else
-            {
-                status = "3";
-            }
+
 
             con.Close();
-            return RedirectToAction("AdminInterface", "Admin");*/
-
-            return View();
-        }
-
+            return RedirectToAction("ProcessInformation", "Supervisor");
 
         }
+
+
+    }
 }
