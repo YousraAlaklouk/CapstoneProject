@@ -28,7 +28,7 @@ namespace CapstoneProject.Controllers
         }
 
         public ActionResult ProcessInformation()
-        {
+        {/*
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
             string SqlQuery = "SELECT * FROM Person WHERE Email=@Email AND Password=@Password AND Role ='Admin'";
             con.Open();
@@ -59,7 +59,7 @@ namespace CapstoneProject.Controllers
             }
 
             con.Close();
-            return RedirectToAction("AdminInterface", "Admin");
+            return RedirectToAction("AdminInterface", "Admin");*/
 
             return View();
         }
