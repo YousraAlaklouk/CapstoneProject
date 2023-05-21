@@ -64,13 +64,14 @@
             {
                 <p class="mb-4">Supervisor ID</p>
                 <div class="form-group" style="margin-bottom:5px">
-                    @Html.DisplayTextFor(model => model.Enroll.PersonID)
+                    @Html.DisplayTextFor(model => model.Enroll[0].PersonID)
 
                 </div>
+                <p>Choose the Animal ID</p>
                 <div class="form-group" style="margin-bottom:5px">
-                    @Html.DropDownListFor(model => model.Animals, new SelectList(Model.Animals, "ID"), "Select Type*", new { @class = "form-control" })
+                    @Html.DropDownListFor(model => model.Animals[0].ID, new MultiSelectList(Model.Animals, "ID", "ID"), "Select Type*", new { @class = "form-control" })
                 </div>
-
+                <p> The Process State Is</p>
                 <div class="form-group" style="margin-bottom:5px">
 
                     @Html.TextBoxFor(model => model.Process.State, new { @class = "form-control" })
@@ -82,7 +83,7 @@
                 Start!
             </a>
         </div>
-@*        @foreach (var item in ViewModel)
+@*     @foreach (var item in ViewModel)
         {
             <tr>
                 <td>
@@ -92,7 +93,7 @@
                     @Html.DisplayFor(model => model.Animal.ID)
                 </td>
                 </tr>
-        }*@
+        }
                 <script type="text/javascript">
                                             $(function () {
                                             var msg = '@ViewData["result"]';

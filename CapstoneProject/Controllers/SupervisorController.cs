@@ -43,94 +43,110 @@ namespace CapstoneProject.Controllers
         public List<Animal> GetAnimalList()
 
         {
-
-/*            try
-            {
-*/
-/*                ViewModel VR = new ViewModel();
-*/                SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
+                SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
                 string SqlQuery = "SELECT AnimalID FROM Animal";
                 con.Open();
                 SqlCommand cmd = new SqlCommand(SqlQuery, con); ;
                 SqlDataReader sdr = cmd.ExecuteReader();
-            List<Animal> An = new List<Animal>();
-
-
-            if (sdr.Read())
-
-            {
+                List<Animal> An = new List<Animal>();
                 try
                 {
-
-
-
-                    An.Add(new Animal
-
+                    while (sdr.Read())
                     {
-
-                        ID = Convert.ToInt32(sdr["AnimalID"]),
-
-
-                    });
+                        An.Add(new Animal
+                        {
+                            ID = Convert.ToInt32(sdr["AnimalID"]),
+                        });
+                    }
                 }
-                catch(Exception ee)
+                catch (Exception ee)
                 {
                     MessageBox.Show(ee.Message);
                 }
-                }
-            else
-            {
-                MessageBox.Show("error");
+
+
+                con.Close();
+
+                return An;
             }
+
+
+
+
+        /*                {
+                            return RedirectToAction("ProcessInformation", "Supervisor");
+                            con.Close();
+
+                        }
+                        else
+                        {
+                            ViewData["Message"] = "Cannot get information";
+                            con.Close();
+
+                        }
+
+                    }
+                    catch (SqlException ee)
+                    {
+
+                        MessageBox.Show(ee.Message);
+                        return View("ProcessInformation");
+
+                    }
+                    return View("ProcessInformation");
+
+
+                    *//*            return RedirectToAction("ProcessInformation", "Supervisor");
+                       *            , A.AnimalID FROM Person P INNER JOIN MilkingProcess M ON M.SupervisorID=P.PersonID INNER JOIN Animal A ON M.AnimalID = A.AnimalID 
+                    *//*
+                }*/
+
+        public List<Enroll> GetEnrollList() { 
+
+        List<Enroll> e = new List<Enroll>();
+
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
+            string SqlQuery = "SELECT PersonID FROM Person WHERE Email =" + Session["Email"].ToString() + "";
+            SqlCommand cmd = new SqlCommand(SqlQuery, con); ;
+            con.Open();
+            SqlDataReader sdr = cmd.ExecuteReader();
+
+            try
+            {
+                while (sdr.Read())
+                {
+                    e.Add(new Enroll
+                    {
+                        PersonID = Convert.ToInt32(sdr["PersonID"]),
+                    });
+                }
+            }
+            catch (Exception ee)
+            {
+                MessageBox.Show(ee.Message);
+            }
+
 
             con.Close();
 
-            return An;
-
+            return e;
         }
-
-
-
-/*                {
-                    return RedirectToAction("ProcessInformation", "Supervisor");
-                    con.Close();
-
-                }
-                else
-                {
-                    ViewData["Message"] = "Cannot get information";
-                    con.Close();
-
-                }
-
-            }
-            catch (SqlException ee)
-            {
-
-                MessageBox.Show(ee.Message);
-                return View("ProcessInformation");
-
-            }
-            return View("ProcessInformation");
-
-
-            *//*            return RedirectToAction("ProcessInformation", "Supervisor");
-            *//*
-        }*/
-
-    
-
 
         public ActionResult ProcessInformation()
         {
+
             ViewModel VR = new ViewModel
 
             {
 
-                Animals = GetAnimalList()
-
+            Animals = GetAnimalList(),
+            Enroll = GetEnrollList()
 
             };
+
+
+
+
 
             return View(VR);
 

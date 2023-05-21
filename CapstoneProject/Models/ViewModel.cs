@@ -10,7 +10,7 @@ namespace CapstoneProject.Models
         public List<Animal> Animals { get; set; }
 
 
-        public Enroll Enroll { get; set; }
+        public List<Enroll>  Enroll { get; set; }
 
         public Process Process { get; set; }
 
