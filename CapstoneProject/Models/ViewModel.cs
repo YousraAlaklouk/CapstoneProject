@@ -11,7 +11,6 @@ namespace CapstoneProject.Models
 
 
         public List<Enroll>  Enroll { get; set; }
-
         public Process Process { get; set; }
 
 

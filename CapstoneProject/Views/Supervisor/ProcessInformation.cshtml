@@ -1,6 +1,6 @@
 ﻿
 
-@model CapstoneProject.Models.ViewModel
+@model IEnumerable<CapstoneProject.Models.ViewModel>
 @{
     ViewBag.Title = "ProcessInformation";
 }
@@ -64,7 +64,7 @@
             {
                 <p class="mb-4">Supervisor ID</p>
                 <div class="form-group" style="margin-bottom:5px">
-                    @Html.DisplayTextFor(model => model.Enroll[0].PersonID)
+                    @Html.DisplayNameFor(model => model.e.PersonID)
 
                 </div>
                 <p>Choose the Animal ID</p>
@@ -83,15 +83,13 @@
                 Start!
             </a>
         </div>
-@*     @foreach (var item in ViewModel)
+@*    @foreach (var Enroll in Model.Enroll)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(model => model.Enroll.PersonID)
+                    @Enroll.PersonID
                 </td>
-                <td>
-                    @Html.DisplayFor(model => model.Animal.ID)
-                </td>
+
                 </tr>
         }
                 <script type="text/javascript">
@@ -106,7 +104,7 @@
                 </script>
                 @section Scripts {
                     @Scripts.Render("~/bundles/jqueryval")
-                }
+                }*@
         </section>
         </body>
 </html>

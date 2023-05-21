@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using System.Windows;
 using System.Windows.Forms;
 using System.Web.Mvc.Html;
+using System.Threading;
 
 using CapstoneProject.Models;
 using System.Net.Mail;
@@ -19,7 +20,7 @@ namespace CapstoneProject.Controllers
     public class LoginController : Controller
     {
 
-        public static string email = "";
+        public static String email = "";
 
         // GET: Login
         public string status;
@@ -102,23 +103,29 @@ namespace CapstoneProject.Controllers
             if (sdr.Read())
             {
                 Session["Email"] = e.Email.ToString();
-                return RedirectToAction("SupervisorInterface", "Supervisor");
                 e.Email = email;
                 e.role = "Supervisor";
+                MessageBox.Show( " the email is "+ Session["Email"]);
+                Thread.Sleep(1000);
+                return RedirectToAction("SupervisorInterface", "Supervisor");
+
 
             }
-           else
+            else
             {
                 ViewData["Message"] = "User Login Details Failed!!";
+
             }
             if (e.Email.ToString() != null)
             {
                 Session["Email"] = e.Email.ToString();
                 status = "1";
+
             }
             else
             {
                 status = "3";
+
             }
 
             con.Close();

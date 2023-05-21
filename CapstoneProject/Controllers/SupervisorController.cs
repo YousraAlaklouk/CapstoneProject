@@ -101,33 +101,18 @@ namespace CapstoneProject.Controllers
                     *//*
                 }*/
 
-        public List<Enroll> GetEnrollList() { 
+        public List<Enroll> EnrollList() {
 
-        List<Enroll> e = new List<Enroll>();
 
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
-            string SqlQuery = "SELECT PersonID FROM Person WHERE Email =" + Session["Email"].ToString() + "";
-            SqlCommand cmd = new SqlCommand(SqlQuery, con); ;
-            con.Open();
-            SqlDataReader sdr = cmd.ExecuteReader();
-
-            try
+            List<Enroll> e = new List<Enroll>();
+            using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
             {
-                while (sdr.Read())
-                {
-                    e.Add(new Enroll
-                    {
-                        PersonID = Convert.ToInt32(sdr["PersonID"]),
-                    });
-                }
-            }
-            catch (Exception ee)
-            {
-                MessageBox.Show(ee.Message);
+
+                e = db.Query<Enroll>("SELECT PersonID FROM Person WHERE Email =' " + Session["Email"].ToString() + "'").ToList();
+
             }
 
-
-            con.Close();
+     
 
             return e;
         }
@@ -139,11 +124,13 @@ namespace CapstoneProject.Controllers
 
             {
 
-            Animals = GetAnimalList(),
-            Enroll = GetEnrollList()
-
+                Animals = GetAnimalList(),
+                Enroll = EnrollList()
             };
 
+
+
+        
 
 
 
