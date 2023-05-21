@@ -20,7 +20,7 @@ namespace CapstoneProject.Controllers
     public class LoginController : Controller
     {
 
-        public static String email = "";
+        public static string email;
 
         // GET: Login
         public string status;
@@ -103,9 +103,9 @@ namespace CapstoneProject.Controllers
             if (sdr.Read())
             {
                 Session["Email"] = e.Email.ToString();
-                e.Email = email;
+                email = e.Email.ToString();
                 e.role = "Supervisor";
-                MessageBox.Show( " the email is "+ Session["Email"]);
+                MessageBox.Show( " the email is "+ email);
                 Thread.Sleep(1000);
                 return RedirectToAction("SupervisorInterface", "Supervisor");
 
@@ -113,6 +113,9 @@ namespace CapstoneProject.Controllers
             }
             else
             {
+
+                MessageBox.Show("Wrong Username Or Password  ");
+
                 ViewData["Message"] = "User Login Details Failed!!";
 
             }
@@ -120,16 +123,19 @@ namespace CapstoneProject.Controllers
             {
                 Session["Email"] = e.Email.ToString();
                 status = "1";
+                return RedirectToAction("Index", "Home");
+
 
             }
             else
             {
                 status = "3";
+                return RedirectToAction("Index", "Home");
 
             }
 
             con.Close();
-            return RedirectToAction("SupervisorInterface", "Supervisor");
+
             //return new JsonResult { Data = new { status = status } };  
         }
         [HttpPost]
@@ -153,20 +159,25 @@ namespace CapstoneProject.Controllers
             }
             else
             {
+                MessageBox.Show("Wrong Username Or Password  ");
+
                 ViewData["Message"] = "User Login Details Failed!!";
             }
             if (en.Email.ToString() != null)
             {
                 Session["Email"] = en.Email.ToString();
                 status = "1";
+                return RedirectToAction("Index", "Home");
+
             }
             else
             {
                 status = "3";
+                return RedirectToAction("Index", "Home");
+
             }
 
             con.Close();
-            return RedirectToAction("AdminInterface", "Admin");
             //return new JsonResult { Data = new { status = status } };  
         }
     }

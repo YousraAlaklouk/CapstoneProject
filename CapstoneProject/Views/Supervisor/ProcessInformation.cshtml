@@ -1,6 +1,6 @@
 ﻿
 
-@model IEnumerable<CapstoneProject.Models.ViewModel>
+@model CapstoneProject.Models.ViewModel
 @{
     ViewBag.Title = "ProcessInformation";
 }
@@ -64,12 +64,12 @@
             {
                 <p class="mb-4">Supervisor ID</p>
                 <div class="form-group" style="margin-bottom:5px">
-                    @Html.DisplayNameFor(model => model.e.PersonID)
+                    @Html.DisplayNameFor(model => model.Enroll[0].PersonID)
 
                 </div>
                 <p>Choose the Animal ID</p>
                 <div class="form-group" style="margin-bottom:5px">
-                    @Html.DropDownListFor(model => model.Animals[0].ID, new MultiSelectList(Model.Animals, "ID", "ID"), "Select Type*", new { @class = "form-control" })
+                    @Html.DropDownListFor(model => model.Animals[0].ID, new MultiSelectList(Model.Animals, "ID", "ID"), "Select Animal ID*", new { @class = "form-control" })
                 </div>
                 <p> The Process State Is</p>
                 <div class="form-group" style="margin-bottom:5px">

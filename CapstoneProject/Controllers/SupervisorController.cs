@@ -20,7 +20,7 @@ namespace CapstoneProject.Controllers
 {
     public class SupervisorController : Controller
     {
-        String email = LoginController.email;
+        string email = LoginController.email;
         public ActionResult SupervisorInterface()
         {
             List < Models.Process> FriendList = new List<Models.Process>();
