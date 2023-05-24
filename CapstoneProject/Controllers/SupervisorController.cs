@@ -104,17 +104,31 @@ namespace CapstoneProject.Controllers
         public List<Enroll> EnrollList() {
 
 
-            List<Enroll> e = new List<Enroll>();
-            using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
+            string SqlQuery = "SELECT PersonID FROM Person WHERE Email ='"+Session["Email"]+"'";
+            con.Open();
+            SqlCommand cmd = new SqlCommand(SqlQuery, con); ;
+            SqlDataReader sdr = cmd.ExecuteReader();
+            List<Enroll> An = new List<Enroll>();
+            try
             {
-
-                e = db.Query<Enroll>("SELECT PersonID FROM Person WHERE Email =' " + Session["Email"].ToString() + "'").ToList();
-
+                while (sdr.Read())
+                {
+                    An.Add(new Enroll
+                    {
+                        PersonID = Convert.ToInt32(sdr["PersonID"]),
+                    });
+                }
+            }
+            catch (Exception ee)
+            {
+                MessageBox.Show(ee.Message);
             }
 
-     
 
-            return e;
+            con.Close();
+
+            return An;
         }
 
         public ActionResult ProcessInformation()

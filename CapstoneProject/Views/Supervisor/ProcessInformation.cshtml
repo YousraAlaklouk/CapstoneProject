@@ -62,19 +62,20 @@
 
             @using (Html.BeginForm("ProcessInformation", "Supervisor", FormMethod.Get))
             {
-                <p class="mb-4">Supervisor ID</p>
-                <div class="form-group" style="margin-bottom:5px">
-                    @Html.DisplayNameFor(model => model.Enroll[0].PersonID)
+        <div class="form-group" style="margin-bottom:5px">
+            <p >Supervisor ID</p>
+            @Html.TextBoxFor(model => model.Enroll[0].PersonID, new { @class = "form-control", @readonly = "readonly", @onclick = "return false" })
 
-                </div>
-                <p>Choose the Animal ID</p>
+        </div>
                 <div class="form-group" style="margin-bottom:5px">
-                    @Html.DropDownListFor(model => model.Animals[0].ID, new MultiSelectList(Model.Animals, "ID", "ID"), "Select Animal ID*", new { @class = "form-control" })
-                </div>
-                <p> The Process State Is</p>
-                <div class="form-group" style="margin-bottom:5px">
+                    <p>Choose the Animal ID</p>
 
-                    @Html.TextBoxFor(model => model.Process.State, new { @class = "form-control" })
+                    @Html.DropDownListFor(model => model.Animals[0].ID, new MultiSelectList(Model.Animals, "ID", "ID"), "Select Animal ID*", new { @class = "form-control" })
+                </div>
+                <div class="form-group" style="margin-bottom:5px">
+                    <p> The Process Will Start With State</p>
+
+                    <input id="Name" name="Name" type="text" value="1" readonly  style="width:100%"/>
                 </div>
             }
         </div>

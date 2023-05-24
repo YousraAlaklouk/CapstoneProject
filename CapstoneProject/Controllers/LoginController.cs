@@ -34,10 +34,10 @@ namespace CapstoneProject.Controllers
             return View();
         }
 
- 
+
         public ActionResult ForgotPassword()
         {
-            
+
             return View();
         }
 
@@ -49,7 +49,7 @@ namespace CapstoneProject.Controllers
 
             using (MailMessage mail = new MailMessage())
             {
-               
+
                 mail.From = new MailAddress("samaalfares565@gmail.com");
                 mail.To.Add(e.Email);
                 mail.Subject = "Reset Password";
@@ -72,7 +72,7 @@ namespace CapstoneProject.Controllers
                     Enroll er = new Enroll();
                     using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
                     {
-                        using (SqlCommand cmd = new SqlCommand("update Person set Password = '"+value+"' where Email = '"+e.Email+"'" , con))
+                        using (SqlCommand cmd = new SqlCommand("update Person set Password = '" + value + "' where Email = '" + e.Email + "'", con))
                         {
                             con.Open();
                             ViewData["result"] = cmd.ExecuteNonQuery();
@@ -92,93 +92,121 @@ namespace CapstoneProject.Controllers
         [HttpPost]
         public ActionResult Supervisorlogin(Enroll e)
         {
-            //String SqlCon = ConfigurationManager.ConnectionStrings["ConnDB"].ConnectionString;
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
-            string SqlQuery = "SELECT Email,Password FROM Person WHERE Email=@Email AND Password=@Password AND Role = 'Supervisor'";
-            con.Open();
-            SqlCommand cmd = new SqlCommand(SqlQuery, con); ;
-            cmd.Parameters.AddWithValue("@Email", e.Email);
-            cmd.Parameters.AddWithValue("@Password", e.Password);
-            SqlDataReader sdr = cmd.ExecuteReader();
-            if (sdr.Read())
+            try
             {
-                Session["Email"] = e.Email.ToString();
-                email = e.Email.ToString();
-                e.role = "Supervisor";
-                MessageBox.Show( " the email is "+ email);
-                Thread.Sleep(1000);
-                return RedirectToAction("SupervisorInterface", "Supervisor");
 
+                //String SqlCon = ConfigurationManager.ConnectionStrings["ConnDB"].ConnectionString;
+                SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
+                string SqlQuery = "SELECT Email,Password FROM Person WHERE Email=@Email AND Password=@Password AND Role = 'Supervisor'";
+                con.Open();
+                SqlCommand cmd = new SqlCommand(SqlQuery, con); ;
+                cmd.Parameters.AddWithValue("@Email", e.Email);
+                cmd.Parameters.AddWithValue("@Password", e.Password);
+                SqlDataReader sdr = cmd.ExecuteReader();
+                if (sdr.Read())
+                {
+                    Session["Email"] = e.Email.ToString();
+                    email = e.Email.ToString();
+                    e.role = "Supervisor";
+                    MessageBox.Show(" the email is " + email);
+                    Thread.Sleep(1000);
+                    return RedirectToAction("SupervisorInterface", "Supervisor");
+
+
+                }
+                else
+                {
+
+                    MessageBox.Show("Wrong Username Or Password  ");
+
+                    ViewData["Message"] = "User Login Details Failed!!";
+
+                }
+                if (email != null)
+                {
+                    Session["Email"] = e.Email.ToString();
+                    status = "1";
+                    return RedirectToAction("Index", "Home");
+
+
+                }
+                else
+                {
+                    Session["Email"] = "";
+
+                    status = "3";
+                    return RedirectToAction("Index", "Home");
+
+                }
+                con.Close();
 
             }
-            else
+            catch (Exception er)
             {
 
-                MessageBox.Show("Wrong Username Or Password  ");
-
-                ViewData["Message"] = "User Login Details Failed!!";
-
-            }
-            if (e.Email.ToString() != null)
-            {
-                Session["Email"] = e.Email.ToString();
-                status = "1";
+                MessageBox.Show("Error", er.Message);
+                Thread.Sleep(30);
                 return RedirectToAction("Index", "Home");
 
-
-            }
-            else
-            {
-                status = "3";
-                return RedirectToAction("Index", "Home");
-
             }
 
-            con.Close();
 
             //return new JsonResult { Data = new { status = status } };  
         }
         [HttpPost]
         public ActionResult Adminlogin(Enroll en)
         {
-            //String SqlCon = ConfigurationManager.ConnectionStrings["ConnDB"].ConnectionString;
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
-            string SqlQuery = "SELECT Email,Password FROM Person WHERE Email=@Email AND Password=@Password AND Role ='Admin'";
-            con.Open();
-            SqlCommand cmd = new SqlCommand(SqlQuery, con); ;
-            cmd.Parameters.AddWithValue("@Email", en.Email);
-            cmd.Parameters.AddWithValue("@Password", en.Password);
-            SqlDataReader sdr = cmd.ExecuteReader();
-            if (sdr.Read())
+            try
             {
-                Session["Email"] = en.Email.ToString();
-                return RedirectToAction("AdminInterface", "Admin");
-                en.Email = email;
-                en.role = "Admin";
+
+                //String SqlCon = ConfigurationManager.ConnectionStrings["ConnDB"].ConnectionString;
+                SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
+                string SqlQuery = "SELECT Email,Password FROM Person WHERE Email=@Email AND Password=@Password AND Role ='Admin'";
+                con.Open();
+                SqlCommand cmd = new SqlCommand(SqlQuery, con); ;
+                cmd.Parameters.AddWithValue("@Email", en.Email);
+                cmd.Parameters.AddWithValue("@Password", en.Password);
+                SqlDataReader sdr = cmd.ExecuteReader();
+                if (sdr.Read())
+                {
+                    Session["Email"] = en.Email.ToString();
+                    return RedirectToAction("AdminInterface", "Admin");
+                    en.Email = email;
+                    en.role = "Admin";
+
+                }
+                else
+                {
+                    MessageBox.Show("Wrong Username Or Password  ");
+
+                    ViewData["Message"] = "User Login Details Failed!!";
+                }
+                if (email != null)
+                {
+                    Session["Email"] = en.Email.ToString();
+                    status = "1";
+                    return RedirectToAction("Index", "Home");
+
+                }
+                else
+                {
+                    status = "3";
+                    Session["Email"] = "";
+                    return RedirectToAction("Index", "Home");
+
+                }
+
+                con.Close();
 
             }
-            else
+            catch (Exception er)
             {
-                MessageBox.Show("Wrong Username Or Password  ");
 
-                ViewData["Message"] = "User Login Details Failed!!";
-            }
-            if (en.Email.ToString() != null)
-            {
-                Session["Email"] = en.Email.ToString();
-                status = "1";
+                MessageBox.Show("Error", er.Message);
+                Thread.Sleep(30);
                 return RedirectToAction("Index", "Home");
 
             }
-            else
-            {
-                status = "3";
-                return RedirectToAction("Index", "Home");
-
-            }
-
-            con.Close();
-            //return new JsonResult { Data = new { status = status } };  
         }
     }
 }
