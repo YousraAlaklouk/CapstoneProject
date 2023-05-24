@@ -130,15 +130,47 @@ namespace CapstoneProject.Controllers
 
             return An;
         }
+        [HttpPost]
+        [Obsolete]
+        public ActionResult ProcessInsert(Models.Process pr)
+        {
+            try
+            {
+                if (Request.HttpMethod == "POST")
+                {
 
-        public ActionResult ProcessInformation()
+                    using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
+                    {
+                        using (SqlCommand cmd = new SqlCommand("INSERT INTO MilkingProcess (SupervisorID,AnimalID,DateTime ,State) VALUES ((SELECT PersonID FROM Person WHERE Email ='"+Session["Email"]+"'),@AnimalID,(SELECT GETDATE()), 1)", con))
+                        {
+                            cmd.Parameters.AddWithValue("@AnimalID", pr.AnimalID);
+
+                            con.Open();
+                            ViewData["result"] = cmd.ExecuteNonQuery();
+                            con.Close();
+
+                        }
+                    }
+                }
+                MessageBox.Show("Started Succssfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return View();
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return View();
+
+            }
+        }
+            public ActionResult ProcessInformation()
         {
 
             ViewModel VR = new ViewModel
 
             {
-
-                Animals = GetAnimalList(),
+/*                Process = ProcessInsert(),
+*/                Animals = GetAnimalList(),
                 Enroll = EnrollList()
             };
 

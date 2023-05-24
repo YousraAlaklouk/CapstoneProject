@@ -59,14 +59,16 @@
                 <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                 <div class="divider-custom-line"></div>
             </div>
-
-            @using (Html.BeginForm("ProcessInformation", "Supervisor", FormMethod.Get))
-            {
-        <div class="form-group" style="margin-bottom:5px">
-            <p >Supervisor ID</p>
-            @Html.TextBoxFor(model => model.Enroll[0].PersonID, new { @class = "form-control", @readonly = "readonly", @onclick = "return false" })
-
         </div>
+        @using (Html.BeginForm("ProcessInsert", "Supervisor", FormMethod.Post))
+        {
+            <div class="container">
+
+                <div class="form-group" style="margin-bottom:5px">
+                    <p>Supervisor ID</p>
+                    @Html.TextBoxFor(model => model.Enroll[0].PersonID, new { @class = "form-control", @readonly = "readonly", @onclick = "return false" })
+
+                </div>
                 <div class="form-group" style="margin-bottom:5px">
                     <p>Choose the Animal ID</p>
 
@@ -75,24 +77,14 @@
                 <div class="form-group" style="margin-bottom:5px">
                     <p> The Process Will Start With State</p>
 
-                    <input id="Name" name="Name" type="text" value="1" readonly  style="width:100%"/>
+                    <input id="Name" name="Name" type="text" value="1" readonly style="width:100%" />
                 </div>
-            }
-        </div>
-        <div class="text-center mt-4">
-            <a class="btn btn-xl btn-outline-light" href="https://startbootstrap.com/theme/freelancer/">
-                Start!
-            </a>
-        </div>
-@*    @foreach (var Enroll in Model.Enroll)
-        {
-            <tr>
-                <td>
-                    @Enroll.PersonID
-                </td>
 
-                </tr>
-        }
+
+                <div class="text-center mt-4">
+                    <button class="btn btn-xl btn-outline-light" id="Button" type="submit">Start!</button>
+                </div>
+                </div>
                 <script type="text/javascript">
                                             $(function () {
                                             var msg = '@ViewData["result"]';
@@ -105,7 +97,8 @@
                 </script>
                 @section Scripts {
                     @Scripts.Render("~/bundles/jqueryval")
-                }*@
+                }
+                }
         </section>
         </body>
 </html>
