@@ -138,14 +138,22 @@ namespace CapstoneProject.Controllers
             {
                 if (Request.HttpMethod == "POST")
                 {
-
+                    ViewModel vm = new ViewModel();
                     using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
                     {
                         using (SqlCommand cmd = new SqlCommand("INSERT INTO MilkingProcess (SupervisorID,AnimalID,DateTime ,State) VALUES ((SELECT PersonID FROM Person WHERE Email ='"+Session["Email"]+"'),@AnimalID,(SELECT GETDATE()), 1)", con))
                         {
-                            cmd.Parameters.AddWithValue("@AnimalID", pr.AnimalID);
-
+                            cmd.Parameters.AddWithValue("@AnimalID", Convert.ToInt32(vm.Process.AnimalID));
+                            SqlDataReader sdr = cmd.ExecuteReader();
+/*                            while (sdr.Read())
+                            {
+                                vm.(new Animal
+                                {
+                                    ID = Convert.ToInt32(sdr["PersonID"]),
+                                });
+                            }*/
                             con.Open();
+
                             ViewData["result"] = cmd.ExecuteNonQuery();
                             con.Close();
 
