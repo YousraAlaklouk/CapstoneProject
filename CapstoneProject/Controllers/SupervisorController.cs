@@ -166,7 +166,7 @@ namespace CapstoneProject.Controllers
                     }
                 }
                 MessageBox.Show("Started Succssfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return View();
+                return View("ProcessInformation");
 
             }
             catch (Exception e)
