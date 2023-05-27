@@ -23,6 +23,7 @@ namespace CapstoneProject.Controllers
         string email = LoginController.email;
         public ActionResult SupervisorInterface()
         {
+
             List < Models.Process> FriendList = new List<Models.Process>();
             using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
             {
@@ -137,9 +138,12 @@ namespace CapstoneProject.Controllers
         }
         [HttpPost]
         [Obsolete]
-        public ActionResult ProcessInsert(Models.Process pr)
+        public ActionResult ProcessInsert(string txtanimal)
         {
-            if (ModelState.IsValid) { 
+            string s = txtanimal;
+
+            MessageBox.Show(s);
+
             try
             {
                 if (Request.HttpMethod == "POST")
@@ -149,16 +153,11 @@ namespace CapstoneProject.Controllers
                     {
                         using (SqlCommand cmd = new SqlCommand("INSERT INTO MilkingProcess (SupervisorID,AnimalID,DateTime ,State) VALUES ((SELECT PersonID FROM Person WHERE Email ='"+Session["Email"]+"'),@AnimalID,(SELECT GETDATE()), 1)", con))
                         {
-                            cmd.Parameters.AddWithValue("@AnimalID", Convert.ToInt32(vm.Process.AnimalID));
-                            SqlDataReader sdr = cmd.ExecuteReader();
-/*                            while (sdr.Read())
-                            {
-                                vm.(new Animal
-                                {
-                                    ID = Convert.ToInt32(sdr["PersonID"]),
-                                });
-                            }*/
+                            cmd.Parameters.AddWithValue("@AnimalID", Convert.ToInt32(s));
+
+
                             con.Open();
+
 
                             ViewData["result"] = cmd.ExecuteNonQuery();
                             con.Close();
@@ -176,12 +175,9 @@ namespace CapstoneProject.Controllers
                 return View();
 
             }
-            }
-            else
-            {
-                MessageBox.Show("model not valid ");
-                return View();
-            }
+
+
+          
         }
             public ActionResult ProcessInformation()
         {
