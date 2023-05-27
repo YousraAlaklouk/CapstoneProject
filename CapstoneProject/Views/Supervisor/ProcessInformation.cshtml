@@ -72,7 +72,8 @@
                 <div class="form-group" style="margin-bottom:5px">
                     <p>Choose the Animal ID</p>
 
-                    @Html.DropDownListFor(model => model.Animals[0].ID, new MultiSelectList(Model.Animals, "ID", "ID"), "Select Animal ID*", new { @class = "form-control" })
+                    @Html.DropDownListFor(model => model.Animals[0].ID, new MultiSelectList(Model.Animals, "ID", "ID"), "Select Animal ID*", new { @class = "form-control", @onChange = "SelectedValue(this)" })
+                    @Html.ValidationMessageFor(model => model.Animals, "", new { @class = "text-danger" })
                 </div>
                 <div class="form-group" style="margin-bottom:5px">
                     <p> The Process Will Start With State</p>
@@ -94,6 +95,15 @@
                                                 window.location.href = "@Url.Action("Index", "Home")";
                                                 }
                                             });
+                    function SelectedValue(ddlObject) {
+                        //Selected value of dropdownlist  
+                        var selectedValue = ddlObject.value;
+                        //Selected text of dropdownlist  
+                        var selectedText = ddlObject.options[ddlObject.selectedIndex].innerHTML;
+
+                        //alert popup with detail of seleceted value and text  
+                        alert(" Selected Value: " + selectedValue + " -- " + "Selected Text: " + selectedText);
+                    }
                 </script>
                 @section Scripts {
                     @Scripts.Render("~/bundles/jqueryval")

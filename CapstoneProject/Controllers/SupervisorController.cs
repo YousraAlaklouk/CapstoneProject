@@ -55,7 +55,12 @@ namespace CapstoneProject.Controllers
                     {
                         An.Add(new Animal
                         {
+
+
                             ID = Convert.ToInt32(sdr["AnimalID"]),
+
+
+
                         });
                     }
                 }
@@ -134,6 +139,7 @@ namespace CapstoneProject.Controllers
         [Obsolete]
         public ActionResult ProcessInsert(Models.Process pr)
         {
+            if (ModelState.IsValid) { 
             try
             {
                 if (Request.HttpMethod == "POST")
@@ -170,6 +176,12 @@ namespace CapstoneProject.Controllers
                 return View();
 
             }
+            }
+            else
+            {
+                MessageBox.Show("model not valid ");
+                return View();
+            }
         }
             public ActionResult ProcessInformation()
         {
@@ -183,7 +195,7 @@ namespace CapstoneProject.Controllers
             };
 
 
-
+            
         
 
 
