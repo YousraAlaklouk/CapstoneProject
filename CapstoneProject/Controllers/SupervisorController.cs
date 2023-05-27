@@ -15,11 +15,14 @@ using CapstoneProject.Controllers;
 using System.Web.Helpers;
 using System.Windows.Forms;
 using System.Web.Mvc.Html;
+using System.IO.Ports;
 
 namespace CapstoneProject.Controllers
 {
     public class SupervisorController : Controller
     {
+
+        SerialPort serialPort;
         string email = LoginController.email;
         public ActionResult SupervisorInterface()
         {
@@ -198,7 +201,24 @@ namespace CapstoneProject.Controllers
 
 
             return View(VR);
+            getArduinoData();
 
+        }
+
+        public void getArduinoData()
+        {
+            serialPort = new SerialPort("COM3",9600);
+
+            try
+            {
+                serialPort.Open();
+            }
+            catch (Exception e )
+            {
+                Console.WriteLine(e);
+            }
+
+            MessageBox.Show(serialPort.NewLine);
         }
     }
 }
