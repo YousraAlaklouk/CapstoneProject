@@ -70,9 +70,11 @@
                                     @Html.AntiForgeryToken()
                                     <div class="form-group" style="margin-bottom:5px">
                                         @Html.TextBoxFor(e => e.Email, new { @class = "form-control", placeholder = "Your Email *" })
+                                        @*@Html.ValidationMessageFor(e => e.Email)*@
                                     </div>
                                     <div class="form-group" style="margin-bottom:5px">
                                         @Html.PasswordFor(e => e.Password, new { id = "password", @class = "form-control", placeholder = "Password *" })
+                                        @*@Html.ValidationMessageFor(e => e.pass)*@
                                         <span id="result"></span>
                                     </div>
 

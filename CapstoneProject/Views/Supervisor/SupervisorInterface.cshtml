@@ -70,6 +70,7 @@
 
 
             <h2 class="text-white mb-4">My Process History</h2>
+            <h4 class="text-white mb-4">NOTE: State is 0 then the process continued without any problem until the milk level is 100%, state is 1 if the robot detected blood and stopped the milking process </h4>
             <br />
             <table class="table">
                 <tr>
@@ -89,6 +90,7 @@
                         @Html.DisplayNameFor(model => model.State)
 
                     </th>
+
                 </tr>
 
                 @foreach (var item in Model)

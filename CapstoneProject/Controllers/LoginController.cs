@@ -108,7 +108,7 @@ namespace CapstoneProject.Controllers
                     Session["Email"] = e.Email.ToString();
                     email = e.Email.ToString();
                     e.role = "Supervisor";
-                    MessageBox.Show(" the email is " + email);
+                    //MessageBox.Show(" the email is " + email);
                     Thread.Sleep(1000);
                     return RedirectToAction("SupervisorInterface", "Supervisor");
 

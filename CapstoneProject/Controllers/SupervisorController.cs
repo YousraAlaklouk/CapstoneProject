@@ -1,21 +1,15 @@
 ﻿using CapstoneProject.Models;
+using Dapper;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Data.SqlClient;
-using System.Diagnostics;
-using System.IO;
-using System.Windows;
-using System.Data;
-using Dapper;
 using System.Configuration;
-using CapstoneProject.Controllers;
-using System.Web.Helpers;
-using System.Windows.Forms;
-using System.Web.Mvc.Html;
+using System.Data;
+using System.Data.SqlClient;
 using System.IO.Ports;
+using System.Linq;
+using System.Threading;
+using System.Web.Mvc;
+using System.Windows.Forms;
 
 namespace CapstoneProject.Controllers
 {
@@ -24,15 +18,16 @@ namespace CapstoneProject.Controllers
 
         SerialPort serialPort;
         string email = LoginController.email;
+        ViewModel VR;
         public ActionResult SupervisorInterface()
         {
 
-            List < Models.Process> FriendList = new List<Models.Process>();
+            List <Models.Process> FriendList = new List<Models.Process>();
             using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
             {
 
-                FriendList = db.Query<Models.Process>("SELECT * FROM MilkingProcess M INNER JOIN Person P ON P.PersonID= M.SupervisorID WHERE  P.Email = '" + Session["Email"].ToString() + "'").ToList();
-
+                FriendList = db.Query<Models.Process>("SELECT * FROM MilkingProcess M INNER JOIN Person P ON P.PersonID= M.SupervisorID WHERE  P.Email = '" + email + "'").ToList();
+                
             }
             return View(FriendList);
         }
@@ -136,40 +131,63 @@ namespace CapstoneProject.Controllers
 
 
             con.Close();
-
+            //MessageBox.Show(Session["Email"].ToString());
             return An;
         }
+        string data;
+
         [HttpPost]
         [Obsolete]
         public ActionResult ProcessInsert(string txtanimal)
         {
             string s = txtanimal;
 
-            MessageBox.Show(s);
+            //MessageBox.Show(s);
 
             try
             {
                 if (Request.HttpMethod == "POST")
                 {
-                    ViewModel vm = new ViewModel();
+                    DateTime date = DateTime.Now;
+                    //VR = new ViewModel();
                     using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
                     {
-                        using (SqlCommand cmd = new SqlCommand("INSERT INTO MilkingProcess (SupervisorID,AnimalID,DateTime ,State) VALUES ((SELECT PersonID FROM Person WHERE Email ='"+Session["Email"]+"'),@AnimalID,(SELECT GETDATE()), 1)", con))
+                        //MessageBox.Show(date.ToString());
+                        using (SqlCommand cmd = new SqlCommand("INSERT INTO MilkingProcess (SupervisorID,AnimalID,DateTime ,State) VALUES ((SELECT PersonID FROM Person WHERE Email ='"+Session["Email"]+"'),@AnimalID,'"+date+"', 0)", con))
                         {
-                            cmd.Parameters.AddWithValue("@AnimalID", Convert.ToInt32(s));
+                          
+                                cmd.Parameters.AddWithValue("@AnimalID", Convert.ToInt32(s));
 
 
+                                con.Open();
+                                ViewData["result"] = cmd.ExecuteNonQuery();
+                            con.Close();
+
+
+                        }
+
+
+                        using (SqlCommand cmd2 = new SqlCommand("SELECT M.ProcessID FROM MilkingProcess M INNER JOIN Person P ON P.PersonID = M.SupervisorID WHERE M.DateTime = '" + date + "' AND P.Email= '" + Session["Email"] + "'", con))
+                    {
                             con.Open();
 
+                            data = cmd2.ExecuteScalar().ToString();
 
-                            ViewData["result"] = cmd.ExecuteNonQuery();
+
                             con.Close();
 
                         }
+
+
+
+
                     }
+
+                    getArduinoData();
+
                 }
                 MessageBox.Show("Started Succssfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return View("ProcessInformation");
+                return View("SupervisorInterface");
 
             }
             catch (Exception e)
@@ -185,23 +203,16 @@ namespace CapstoneProject.Controllers
             public ActionResult ProcessInformation()
         {
 
-            ViewModel VR = new ViewModel
+
+            VR = new ViewModel
 
             {
 /*                Process = ProcessInsert(),
 */                Animals = GetAnimalList(),
                 Enroll = EnrollList()
             };
-
-
-            
-        
-
-
-
-
             return View(VR);
-            getArduinoData();
+            
 
         }
 
@@ -211,14 +222,65 @@ namespace CapstoneProject.Controllers
 
             try
             {
+                string min;
+                string ldr;
+                string level;
                 serialPort.Open();
-            }
-            catch (Exception e )
-            {
-                Console.WriteLine(e);
-            }
+                //MessageBox.Show("beginning of try");
+                int i=0;
+                
+                while (true)
+                {
+                    
+                    Thread.Sleep(5000);
+                    //MessageBox.Show("beginning of while");
+                    string a = serialPort.ReadExisting();
+                    Console.WriteLine(a);
+                    Thread.Sleep(200);
+                    string[] b = a.Split(',');
 
-            MessageBox.Show(serialPort.NewLine);
+                    ldr = b[0].ToString();
+                    min = b[1].ToString();
+                    level = b[2].ToString();
+                   if (i> 9)
+                    {
+
+                        if (Convert.ToInt32(ldr) < Convert.ToInt32(min)-5)
+                        {
+
+                            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
+                            {
+                                using (SqlCommand cmd = new SqlCommand("UPDATE MilkingProcess SET State = 1 WHERE ProcessID ="+ data+" ", con))
+                                {
+
+
+                                    con.Open();
+                                    cmd.ExecuteNonQuery();
+                                    MessageBox.Show("The Process Stopped Automaticly Because of Blood Detected and the milk level ="+ b[2].ToString() + "%");
+
+                                }
+                                con.Close();
+
+                            }
+
+
+
+                        }
+
+                    }
+                    i++;
+                }
+                
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+                //serialPort.Close();
+            }
+            //serialPort.Close();
+
         }
+
+
     }
 }
