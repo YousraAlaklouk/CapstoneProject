@@ -19,6 +19,7 @@ namespace CapstoneProject.Controllers
         SerialPort serialPort;
         string email = LoginController.email;
         ViewModel VR;
+        string command;
         public ActionResult SupervisorInterface()
         {
 
@@ -183,11 +184,11 @@ namespace CapstoneProject.Controllers
 
                     }
 
-                    getArduinoData();
+                    testArduino();
 
                 }
                 MessageBox.Show("Started Succssfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return View("SupervisorInterface");
+                return RedirectToAction("Index", "Home");
 
             }
             catch (Exception e)
@@ -216,16 +217,60 @@ namespace CapstoneProject.Controllers
 
         }
 
-        public void getArduinoData()
+        public void testArduino()
         {
-            serialPort = new SerialPort("COM3",9600);
+            command = "1";
+            serialPort = new SerialPort("COM3", 9600);
 
             try
             {
+                serialPort.Open();
+                serialPort.Write(command);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+
+            while (serialPort.ReadLine().Contains("0"))
+            {
+
+            }
+            //MessageBox.Show("outside");
+
+
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("UPDATE MilkingProcess SET State = 1 WHERE ProcessID =" + data + " ", con))
+                {
+
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("The Process Stopped Automaticly Because of Blood Detection");
+
+                }
+                con.Close();
+
+            }
+            command = "0";
+            serialPort.Write(command);
+
+        }
+
+        public void getArduinoData()
+        {
+            serialPort = new SerialPort("COM3",9600);
+            try
+            {
+                command = "1";
+
+
                 string min;
                 string ldr;
                 string level;
                 serialPort.Open();
+                serialPort.Write(command);
                 //MessageBox.Show("beginning of try");
                 int i=0;
                 
@@ -236,48 +281,72 @@ namespace CapstoneProject.Controllers
                     //MessageBox.Show("beginning of while");
                     string a = serialPort.ReadExisting();
                     Console.WriteLine(a);
-                    Thread.Sleep(200);
+                    Thread.Sleep(1000);
                     string[] b = a.Split(',');
+                    
+                    MessageBox.Show(a);
+                    //MessageBox.Show(c);
+                    //ldr = b[0].ToString();
+                    //Thread.Sleep(1000);
 
-                    ldr = b[0].ToString();
-                    min = b[1].ToString();
-                    level = b[2].ToString();
-                   if (i> 9)
-                    {
+                    //level = b[2].ToString();
+                    
+                    //Thread.Sleep(1000);
+                    //min = b[1].ToString();
+                    //Thread.Sleep(1000);
 
-                        if (Convert.ToInt32(ldr) < Convert.ToInt32(min)-5)
-                        {
+                    //Thread.Sleep(1000);
 
-                            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
-                            {
-                                using (SqlCommand cmd = new SqlCommand("UPDATE MilkingProcess SET State = 1 WHERE ProcessID ="+ data+" ", con))
-                                {
+                    //if (i > 1)
+                    //{
 
 
-                                    con.Open();
-                                    cmd.ExecuteNonQuery();
-                                    MessageBox.Show("The Process Stopped Automaticly Because of Blood Detected and the milk level ="+ b[2].ToString() + "%");
-
-                                }
-                                con.Close();
-
-                            }
+                        
 
 
 
-                        }
 
-                    }
-                    i++;
+                    //    if (Convert.ToInt32(ldr) < Convert.ToInt32(min) - 5)
+                    //    {
+
+                    //        Thread.Sleep(1000);
+
+                    //        using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
+                    //        {
+                    //            using (SqlCommand cmd = new SqlCommand("UPDATE MilkingProcess SET State = 1 WHERE ProcessID =" + data + " ", con))
+                    //            {
+
+
+                    //                con.Open();
+                    //                cmd.ExecuteNonQuery();
+                    //                MessageBox.Show("The Process Stopped Automaticly Because of Blood Detected and the milk level =" + b[2].ToString() + "%");
+
+                    //            }
+                    //            con.Close();
+
+                    //        }
+                            
+                    //        break;
+
+
+                    //    }
+                    //}
+
+                    
+                    //i++;
                 }
                 
             }
             catch (Exception e)
             {
+                command = "0";
+                serialPort.Write(command);
                 MessageBox.Show(e.ToString());
                 //serialPort.Close();
             }
+            command = "0" ;
             //serialPort.Close();
+            serialPort.Write(command);
 
         }
 
